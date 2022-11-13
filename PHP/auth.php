@@ -5,14 +5,20 @@
 	  $pass = md5($pass."janskdngsdhj");
 
 	  $mysql = new mysqli('localhost', 'root', 'root', 'register-bd','3306');
-	  $result = $mysql->query("SELECT * FROM `users`  WHERE `login` = '$login' AND `pass` ='$pass'");
+	  $result = $mysql->query("SELECT * FROM `users`  WHERE `login` = '$login'");
 	  $user = $result->fetch_assoc();
+		$result2 = $mysql->query("SELECT * FROM `users`  WHERE `pass` ='$pass'");
+	  $user2 = $result2->fetch_assoc();
 	  if(count($user) == 0) {
-	    echo "Такой пользователь/пароль не найден.";
+	    echo "Такий логін не найдений.";
+	    exit();
+	  }
+		if(count($user2) == 0) {
+	    echo "Такий пароль не найдений.";
 	    exit();
 	  }
 
-	  setcookie('user', $user['login'], time() + 3600, "/");
+	  setcookie('user', $user['login'], time() + 3600 * 24 * 30, "/");
 
 
 	  $mysql->close();
