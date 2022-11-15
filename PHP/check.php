@@ -13,9 +13,7 @@
 		exit();
 	}
 	$pass = md5($pass."janskdngsdhj");
-
 	$mysql = new mysqli('localhost', 'root', 'root', 'register-bd','3306');
-	$mysql->query("INSERT INTO `users` (`login`, `gmail`, `pass`) VALUES('$login', '$gmail', '$pass')");
 	$login2 = $mysql->query("SELECT * FROM `users`  WHERE `login` = '$login'");
 	$user = $login2->fetch_assoc();
 	$gmail2 = $mysql->query("SELECT * FROM `users`  WHERE `gmail` = '$gmail'");
@@ -28,8 +26,10 @@
 		echo "Така електронная почта вже занята.";
 		exit();
 	}
+	$mysql->query("INSERT INTO `users` (`login`, `gmail`, `pass`) VALUES('$login', '$gmail', '$pass')");
+	setcookie('user', $user['login'], time() + 3600 * 24 * 30, "/");
 	$mysql->close();
 
-	header('Location: /')
+	header('Location: ../index.php')
 
 ?>
