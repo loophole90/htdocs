@@ -4,7 +4,7 @@
 
 	  $pass = md5($pass."janskdngsdhj");
 
-	  $mysql = new mysqli('localhost', 'root', 'root', 'register-bd','3306');
+	  $mysql = new mysqli('localhost', 'root', 'root', 'register-bd','8889');
 	  $result = $mysql->query("SELECT * FROM `users`  WHERE `login` = '$login'");
 	  $user = $result->fetch_assoc();
 		$result2 = $mysql->query("SELECT * FROM `users`  WHERE `pass` ='$pass'");
